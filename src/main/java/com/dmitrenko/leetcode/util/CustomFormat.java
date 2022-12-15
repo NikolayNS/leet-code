@@ -34,7 +34,7 @@ public class CustomFormat {
 		var current = root.children.get(' ');
 		char[] chars = word.toCharArray();
 		for (int i = 0; i < chars.length; i++) {
-			if (notLetter(chars[i])) chars[i] = ' ';
+			if (isSimbol(chars[i])) chars[i] = ' ';
 			if (!(current.children.containsKey(chars[i]))) {
 				var child = new TrieNode();
 				child.depth = i;
@@ -55,7 +55,7 @@ public class CustomFormat {
 		int left = 0;
 		for (int right = 0; right <line.length() ; right++) {
 			char tmp = lineChars[right];
-			if (notLetter(lineChars[right])) {
+			if (isSimbol(lineChars[right])) {
 				tmp = lineChars[right];
 				lineChars[right] = ' ';
 			}
@@ -78,7 +78,7 @@ public class CustomFormat {
 					left++;
 				}
 			} else {
-				if (notLetter(lineChars[right]) && current.replacementWord != null) {
+				if (isSimbol(lineChars[right]) && current.replacementWord != null) {
 					result.append(current.replacementWord);
 					left = right;
 				}
@@ -115,7 +115,7 @@ public class CustomFormat {
 		return node.suffixLink;
 	}
 
-	private static boolean notLetter(char symbol) {
+	private static boolean isSimbol(char symbol) {
 		return symbol == ' ' || symbol == ',' || symbol == '.' || symbol == '_' || symbol == ':'
 			|| symbol == ';' || symbol == '\'' || symbol == '\"' || symbol == '(' || symbol == ')'
 			|| symbol == '[' || symbol == ']' || symbol == '{' || symbol == '}' || symbol == '/'
