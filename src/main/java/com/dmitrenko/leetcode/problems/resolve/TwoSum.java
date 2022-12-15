@@ -1,4 +1,4 @@
-package com.dmitrenko.leetcode.solution;
+package com.dmitrenko.leetcode.problems.resolve;
 
 public class TwoSum {
 
