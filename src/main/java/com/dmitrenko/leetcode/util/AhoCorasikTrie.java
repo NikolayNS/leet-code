@@ -3,15 +3,15 @@ package com.dmitrenko.leetcode.util;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomFormat {
+public class AhoCorasikTrie {
 
-	private CustomFormat() {
+	private AhoCorasikTrie() {
 	}
 
 	public static String format(String source, Map<String, Object> vars) {
 		var root = getRoot();
 
-		vars.forEach((k, v) -> addWord(root, k, v.toString()));
+		vars.forEach((k, v) -> addToTrie(root, k, v.toString()));
 
 		return replaceWords(root, source);
 	}
@@ -25,16 +25,11 @@ public class CustomFormat {
 		return root;
 	}
 
-	private static void addWord(TrieNode root, String replaceableWord, String replacementWord) {
-		var terminalPoint = addToTrie(root, replaceableWord);
-		terminalPoint.replacementWord = replacementWord;
-	}
-
-	private static TrieNode addToTrie(TrieNode root, String word) {
+	private static void addToTrie(TrieNode root, String replaceableWord, String replacementWord) {
 		var current = root.children.get(' ');
-		char[] chars = word.toCharArray();
+		char[] chars = replaceableWord.toCharArray();
 		for (int i = 0; i < chars.length; i++) {
-			if (isSimbol(chars[i])) chars[i] = ' ';
+			if (isSymbol(chars[i])) chars[i] = ' ';
 			if (!(current.children.containsKey(chars[i]))) {
 				var child = new TrieNode();
 				child.depth = i;
@@ -44,7 +39,7 @@ public class CustomFormat {
 			}
 			current = current.children.get(chars[i]);
 		}
-		return current;
+		current.replacementWord = replacementWord;
 	}
 
 	private static String replaceWords(TrieNode root, String line) {
@@ -55,7 +50,7 @@ public class CustomFormat {
 		int left = 0;
 		for (int right = 0; right <line.length() ; right++) {
 			char tmp = lineChars[right];
-			if (isSimbol(lineChars[right])) {
+			if (isSymbol(lineChars[right])) {
 				tmp = lineChars[right];
 				lineChars[right] = ' ';
 			}
@@ -78,7 +73,7 @@ public class CustomFormat {
 					left++;
 				}
 			} else {
-				if (isSimbol(lineChars[right]) && current.replacementWord != null) {
+				if (isSymbol(lineChars[right]) && current.replacementWord != null) {
 					result.append(current.replacementWord);
 					left = right;
 				}
@@ -115,7 +110,7 @@ public class CustomFormat {
 		return node.suffixLink;
 	}
 
-	private static boolean isSimbol(char symbol) {
+	private static boolean isSymbol(char symbol) {
 		return symbol == ' ' || symbol == ',' || symbol == '.' || symbol == '_' || symbol == ':'
 			|| symbol == ';' || symbol == '\'' || symbol == '\"' || symbol == '(' || symbol == ')'
 			|| symbol == '[' || symbol == ']' || symbol == '{' || symbol == '}' || symbol == '/'

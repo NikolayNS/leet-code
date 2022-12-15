@@ -3,19 +3,28 @@ package com.dmitrenko.leetcode.problems.resolve;
 public class LongestCommonPrefix {
 
 	public String longestCommonPrefix(String[] strs) {
-		var result = "";
-
-		char[] main = strs[0].toLowerCase().toCharArray();
-		for (var i = 1; i < strs.length - 1; i++) {
-			char[] s = strs[i].toLowerCase().toCharArray();
-
-			for (var j = 0; j < s.length; j++) {
-				if (main[j] != s[j]) {
-					result = strs[i].substring(0, j - 1);
-				}
+		var minStr = strs[0];
+		for (String s : strs) {
+			if (minStr.length() > s.length()) {
+				minStr = s;
 			}
 		}
 
-		return result;
+		var result = new StringBuilder();
+		for (int i = 0; i < minStr.length(); i++) {
+			for (String s : strs) {
+				if (minStr.charAt(i) != s.charAt(i)) {
+					return result.toString();
+				}
+			}
+			result.append(minStr.charAt(i));
+		}
+
+		return result.toString();
+	}
+
+	public static void main(String[] args) {
+
+		System.out.println(new LongestCommonPrefix().longestCommonPrefix(new String[]{"Pref", "Pr", "Prte"}));
 	}
 }
