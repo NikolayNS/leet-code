@@ -1,4 +1,4 @@
-package com.dmitrenko.leetcode.problems.company;
+package com.dmitrenko.leetcode.problems.resolve;
 
 public class DetectCapital {
 
