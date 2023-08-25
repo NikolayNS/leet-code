@@ -1,4 +1,4 @@
-package com.dmitrenko.leetcode.problems.resolve;
+package com.dmitrenko.leetcode.util;
 
 import java.util.HashMap;
 import java.util.List;
